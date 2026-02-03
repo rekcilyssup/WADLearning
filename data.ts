@@ -352,6 +352,23 @@ Class|.classname|.info { }|Selects all elements with class="info"
 ID|#idname|#header { }|Selects one element with id="header"
 Universal|*|* { }|Selects ALL elements
 Group|s1, s2|h1, h2 { }|Selects both h1 and h2`
+          },
+          {
+            type: ContentType.Text,
+            title: "Attribute Selectors (Forms)",
+            content: "Useful for styling specific input types."
+          },
+          {
+            type: ContentType.Code,
+            language: "css",
+            content: `/* Selects input fields with type="text" */
+input[type="text"] {
+  background-color: #f0f0f0;
+}
+/* Selects links with target="_blank" */
+a[target="_blank"] {
+  color: red;
+}`
           }
         ],
         quiz: [
@@ -598,6 +615,23 @@ el.innerHTML = "New Text";
 // Changing Style
 el.style.color = "blue";
 el.style.fontSize = "20px";`
+          },
+          {
+            type: ContentType.Text,
+            title: "Dynamic Documents (Creation)",
+            content: "You can create and append new elements dynamically."
+          },
+          {
+            type: ContentType.Code,
+            language: "javascript",
+            content: `// Create a new <p> element
+var newPara = document.createElement("p");
+var node = document.createTextNode("This is new.");
+newPara.appendChild(node);
+
+// Append to an existing div
+var element = document.getElementById("div1");
+element.appendChild(newPara);`
           },
           {
             type: ContentType.Note,
