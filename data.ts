@@ -63,6 +63,17 @@ Examples|Validation, Animations, Dynamic Menus|Login processing, Saving to Datab
             correctIndex: 2,
             explanation: "The Application Tier (Middle Tier) handles business logic."
           }
+        ],
+        examQuestions: [
+          {
+            question: "Compare and contrast Client-Side and Server-Side scripting with appropriate examples.",
+            answer: "**Client-Side Scripting**:\n- Runs on the user's web browser.\n- Used for UI interactions, basic validation, and animations.\n- Source code is visible to the user.\n- Examples: JavaScript, VBScript.\n\n**Server-Side Scripting**:\n- Runs on the web server.\n- Used for business logic, database interactions, and authentication.\n- Source code is hidden from the user.\n- Examples: PHP, JSP, ASP.NET, Python (Django/Flask).\n\n**Key Difference**: Client-side reduces server load by handling immediate user feedback, while Server-side handles secure and complex processing."
+          },
+          {
+            question: "Explain the N-Tier architecture with a neat diagram and discuss its advantages over 2-Tier architecture.",
+            answer: "**N-Tier Architecture** (Multi-Tier) divides an application into separate logical layers (tiers), typically three:\n\n1. **Presentation Tier (Client)**: The User Interface (HTML/CSS/JS).\n2. **Application Tier (Business Logic)**: Processes data and rules (Java, C#, Node.js).\n3. **Data Tier (Database)**: Stores and retrieves data (SQL, Oracle).\n\n**Advantages over 2-Tier**:\n- **Scalability**: Each tier can be upgraded independently.\n- **Maintainability**: Easier to manage code as UI is separated from Logic.\n- **Security**: The client cannot access the database directly; it must go through the Application tier.",
+            diagramUrl: "https://placehold.co/600x300/e2e8f0/1e293b?text=N-Tier+Architecture+Diagram%0A(Client+<->+App+Server+<->+DB)"
+          }
         ]
       },
       {
@@ -116,6 +127,16 @@ Controller|Handles Input & Interaction|Servlets, API endpoints, Event handlers`
             options: ["Store data", "Process logic", "Present data to user", "Handle requests"],
             correctIndex: 2,
             explanation: "The View is responsible for the visualization of the data (User Interface)."
+          }
+        ],
+        examQuestions: [
+          {
+            question: "Explain the MVC design pattern and the role of each component.",
+            answer: "**MVC (Model-View-Controller)** is a design pattern used to decouple the user interface (View), the data (Model), and the application logic (Controller).\n\n1. **Model**: Represents the application's data structure. It manages data, logic, and rules of the application (e.g., a `User` class fetching data from SQL).\n2. **View**: The visual representation of the data. It displays information to the user (e.g., HTML pages, React components).\n3. **Controller**: Intermediary between Model and View. It handles user input (clicks, form submissions), updates the Model, and refreshes the View.\n\n**Benefit**: Allows parallel development; designers work on Views while developers work on Logic."
+          },
+          {
+            question: "Discuss the various protocols used in Web Applications.",
+            answer: "Web applications rely on a suite of protocols:\n\n1. **HTTP/HTTPS** (HyperText Transfer Protocol): The foundation of data communication on the web. It is stateless and request-response based.\n2. **TCP/IP**: The core networking protocol. IP handles addressing (where to send), and TCP ensures reliable delivery (re-assembling packets).\n3. **FTP** (File Transfer Protocol): Used for transferring files between client and server.\n4. **SMTP** (Simple Mail Transfer Protocol): Used for sending emails from the application.\n5. **DNS** (Domain Name System): Translates human-readable domain names (google.com) into IP addresses."
           }
         ]
       }
@@ -174,6 +195,12 @@ Controller|Handles Input & Interaction|Servlets, API endpoints, Event handlers`
             options: ["<html>", "<doctype>", "<!DOCTYPE html>", "<xml>"],
             correctIndex: 2,
             explanation: "<!DOCTYPE html> tells the browser the document is HTML5."
+          }
+        ],
+        examQuestions: [
+          {
+            question: "Explain the basic structure of an HTML5 document with an example.",
+            answer: "An HTML5 document structure consists of:\n\n1. **`<!DOCTYPE html>`**: Declaration defining the HTML version.\n2. **`<html>`**: The root element.\n3. **`<head>`**: Contains metadata (charset, title, linked CSS) not visible on the page.\n4. **`<body>`**: Contains the visible content (headings, paragraphs, images).\n\n**Example**:\n```html\n<!DOCTYPE html>\n<html>\n  <head>\n    <title>My Page</title>\n  </head>\n  <body>\n    <h1>Hello World</h1>\n  </body>\n</html>\n```"
           }
         ]
       },
@@ -310,6 +337,16 @@ Used for search/retrieval|Used for submitting sensitive data`
             options: ["<list>", "<input type='dropdown'>", "<select>", "<option>"],
             correctIndex: 2,
             explanation: "The <select> tag creates the dropdown container, and <option> tags define the items."
+          }
+        ],
+        examQuestions: [
+          {
+            question: "Explain the different types of form controls available in HTML5 with examples.",
+            answer: "HTML5 provides various form controls to collect data:\n\n1. **Text Inputs**: `<input type='text'>` for single-line text, `<input type='password'>` for masking characters.\n2. **Radio Buttons**: `<input type='radio'>`. Allows selecting ONLY ONE option from a group.\n3. **Checkboxes**: `<input type='checkbox'>`. Allows selecting MULTIPLE options.\n4. **Select Menu**: `<select>` and `<option>` for dropdown lists.\n5. **Buttons**: `<input type='submit'>` (sends data), `<input type='reset'>` (clears form).\n6. **Textarea**: `<textarea>` for multi-line comments."
+          },
+          {
+            question: "Illustrate forms and form elements.",
+            answer: "A form is defined by the `<form>` tag. It acts as a container for input controls.\n\n**Key Attributes**:\n- `action`: Where the data is sent (URL).\n- `method`: How data is sent (GET/POST).\n\n**Example**:\n```html\n<form action='login.php' method='post'>\n  User: <input type='text' name='u'>\n  Pass: <input type='password' name='p'>\n  <input type='submit' value='Login'>\n</form>\n```"
           }
         ]
       }
@@ -450,6 +487,16 @@ p {
             correctIndex: 0,
             explanation: "list-style-type: none removes default markers."
           }
+        ],
+        examQuestions: [
+          {
+            question: "You have a nested list where the parent list items should use numbered items, and the child list items should use bullet points. Analyze how the CSS properties can be applied to achieve this structure.",
+            answer: "To achieve a numbered parent list and bulleted child list, you need to use the `list-style-type` property targeting the specific list elements.\n\n1. For the parent list (usually `<ol>`), set `list-style-type: decimal;`.\n2. For the nested child list (usually `<ul>`), set `list-style-type: disc;` (or square/circle).\n\n**Code Analysis**:\n```css\n/* Parent List */\nol {\n  list-style-type: decimal;\n}\n\n/* Nested Child List */\nul {\n  list-style-type: disc;\n}\n```"
+          },
+          {
+            question: "Write about all the properties under box model with example program?",
+            answer: "The **CSS Box Model** acts as a container for every HTML element. It consists of four properties (from inside to outside):\n\n1. **Content**: The actual text, image, or media. Controlled by `width` and `height`.\n2. **Padding**: Transparent space between the content and the border. (`padding: 10px;`)\n3. **Border**: The line surrounding the padding. (`border: 1px solid black;`)\n4. **Margin**: Transparent space outside the border, separating it from other elements. (`margin: 20px;`)\n\n**Example**:\n```css\n.box {\n  width: 200px;\n  padding: 20px;\n  border: 5px solid red;\n  margin: 10px;\n}\n```"
+          }
         ]
       }
     ]
@@ -550,6 +597,16 @@ Date|getDay()|Returns day of week (0-6)`
             correctIndex: 1,
             explanation: "Math.round() rounds to the nearest integer."
           }
+        ],
+        examQuestions: [
+          {
+            question: "Discuss about various functions under String object in JavaScript.",
+            answer: "The `String` object in JavaScript is used to manipulate text. Common methods include:\n\n1. **`length`**: Property returning the number of characters.\n2. **`charAt(index)`**: Returns the character at the specified index.\n3. **`indexOf(string)`**: Returns the position of the first occurrence of a substring.\n4. **`substring(start, end)`**: Extracts characters between two indices.\n5. **`toUpperCase()` / `toLowerCase()`**: Converts the string casing.\n6. **`replace(old, new)`**: Replaces a specified value with another value in a string."
+          },
+          {
+            question: "Demonstrate Stack implementation using Array methods",
+            answer: "A **Stack** follows the **LIFO** (Last-In, First-Out) principle. JavaScript Arrays provide built-in methods to implement this:\n\n1. **`push()`**: Adds an element to the end of the array (Top of stack).\n2. **`pop()`**: Removes the last element from the array (Top of stack).\n\n**Implementation**:\n```javascript\nlet stack = [];\n\n// Push operation\nstack.push(10);\nstack.push(20);\n// Stack is now [10, 20]\n\n// Pop operation\nlet item = stack.pop(); \n// item is 20, Stack is [10]\n```"
+          }
         ]
       },
       {
@@ -582,6 +639,12 @@ var result = patt.test(str); // Returns true`
             options: ["g", "m", "i", "c"],
             correctIndex: 2,
             explanation: "'i' stands for case-insensitive."
+          }
+        ],
+        examQuestions: [
+          {
+            question: "Explain the three symbolic qualifiers used in regular expression with an example?",
+            answer: "Symbolic qualifiers (Quantifiers) define how many times the preceding element must occur:\n\n1. **`*` (Asterisk)**: Matches **zero or more** occurrences.\n   - Ex: `bo*` matches 'b', 'bo', 'booo'.\n\n2. **`+` (Plus)**: Matches **one or more** occurrences.\n   - Ex: `bo+` matches 'bo', 'booo' (but NOT 'b').\n\n3. **`?` (Question Mark)**: Matches **zero or one** occurrence.\n   - Ex: `colou?r` matches 'color' and 'colour'."
           }
         ]
       }
@@ -645,6 +708,13 @@ element.appendChild(newPara);`
             options: ["innerText", "innerHTML", "content", "value"],
             correctIndex: 1,
             explanation: "innerHTML sets or returns the HTML content (including tags) of an element."
+          }
+        ],
+        examQuestions: [
+          {
+            question: "Explain how the DOM tree is structured and how it can be traversed using JavaScript",
+            answer: "**Structure**: The DOM (Document Object Model) represents the page as a hierarchical tree of nodes.\n- **Document Node**: The root.\n- **Element Nodes**: HTML tags (body, div, p).\n- **Text Nodes**: The text inside elements.\n\n**Traversal Methods**:\n1. **`parentNode`**: Access the parent of the current node.\n2. **`childNodes`**: Returns a list of child nodes.\n3. **`firstChild` / `lastChild`**: specific children.\n4. **`nextSibling`**: The node immediately following the current one.\n\n**Example**:\n```javascript\nvar p = document.getElementById('myPara');\nvar parentDiv = p.parentNode;\n```",
+            diagramUrl: "https://placehold.co/600x300/e2e8f0/1e293b?text=DOM+Tree+Structure%0A(Document->HTML->Body->Div)"
           }
         ]
       },

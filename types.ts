@@ -15,6 +15,12 @@ export interface QuizQuestion {
   explanation: string;
 }
 
+export interface ExamQuestion {
+  question: string;
+  answer: string;
+  diagramUrl?: string;
+}
+
 export interface ContentBlock {
   type: ContentType;
   content: string | string[]; // For lists, it's an array of strings
@@ -28,6 +34,7 @@ export interface Lesson {
   description: string;
   blocks: ContentBlock[];
   quiz?: QuizQuestion[];
+  examQuestions?: ExamQuestion[];
 }
 
 export interface Module {

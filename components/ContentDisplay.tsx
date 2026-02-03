@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Lesson, ContentType } from '../types';
 import Quiz from './Quiz';
-import { Code, Terminal, AlertTriangle } from 'lucide-react';
+import { Code, Terminal, AlertTriangle, FileText, BookOpenCheck, ChevronDown, ChevronUp, ImageIcon } from 'lucide-react';
 
 interface ContentDisplayProps {
   lesson: Lesson;
 }
 
 const ContentDisplay: React.FC<ContentDisplayProps> = ({ lesson }) => {
+  const [expandedAnswers, setExpandedAnswers] = useState<Record<number, boolean>>({});
+
+  const toggleAnswer = (idx: number) => {
+    setExpandedAnswers(prev => ({
+      ...prev,
+      [idx]: !prev[idx]
+    }));
+  };
+
   return (
     <div className="max-w-4xl mx-auto pb-20">
       <div className="mb-8 border-b border-slate-200 pb-8">
@@ -126,11 +135,119 @@ const ContentDisplay: React.FC<ContentDisplayProps> = ({ lesson }) => {
           }
         })}
 
+        {/* Exam Questions Section - High Visibility Highlight */}
+        {lesson.examQuestions && lesson.examQuestions.length > 0 && (
+          <div className="mt-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-3xl p-8 border-2 border-amber-200 shadow-lg relative overflow-hidden group">
+            
+            {/* Decorative background circle */}
+            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-orange-300 rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            
+            <div className="relative z-10">
+              <div className="flex items-center gap-4 mb-8 pb-4 border-b border-amber-200/60">
+                <div className="bg-gradient-to-br from-orange-500 to-amber-600 text-white p-3 rounded-2xl shadow-md transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
+                  <BookOpenCheck size={28} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-extrabold text-amber-900 tracking-tight">Long Answer Questions</h2>
+                  <p className="text-amber-800/80 text-sm font-medium">Practice these for your upcoming exams</p>
+                </div>
+              </div>
+              
+              <div className="grid gap-6">
+                {lesson.examQuestions.map((q, idx) => {
+                  const isExpanded = expandedAnswers[idx];
+                  return (
+                    <div key={idx} className="bg-white/80 backdrop-blur-sm rounded-2xl border-l-8 border-orange-400 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+                      <div className="p-6 flex flex-col md:flex-row gap-5">
+                        <div className="shrink-0">
+                          <div className="flex flex-col items-center justify-center w-12 h-12 rounded-xl bg-orange-100 text-orange-700 border border-orange-200">
+                            <span className="text-xs font-bold uppercase text-orange-400">Q</span>
+                            <span className="text-lg font-extrabold leading-none">{idx + 1}</span>
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-slate-800 font-bold text-lg leading-relaxed">{q.question}</p>
+                          <div className="mt-3 flex gap-2">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                              10 Marks
+                            </span>
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
+                              Essay Type
+                            </span>
+                            {q.diagramUrl && (
+                               <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <ImageIcon size={12} /> Diagram
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <button 
+                          onClick={() => toggleAnswer(idx)}
+                          className={`self-start md:self-center p-2 rounded-full transition-colors ${isExpanded ? 'bg-orange-100 text-orange-600' : 'bg-slate-100 text-slate-500 hover:bg-orange-50'}`}
+                        >
+                          {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                        </button>
+                      </div>
+
+                      {/* Expandable Answer Section */}
+                      {isExpanded && (
+                        <div className="px-6 pb-6 pt-0 animate-in slide-in-from-top-2 duration-200">
+                          <div className="p-5 bg-orange-50/50 rounded-xl border border-orange-100">
+                            <h4 className="text-sm uppercase tracking-wider font-bold text-orange-800 mb-3 flex items-center gap-2">
+                              <FileText size={14} /> Model Answer
+                            </h4>
+                            <div className="prose prose-sm prose-orange max-w-none text-slate-700 whitespace-pre-wrap">
+                              {q.answer.split('```').map((part, i) => {
+                                if (i % 2 === 1) {
+                                  // Code block
+                                  return (
+                                    <pre key={i} className="bg-slate-800 text-slate-200 p-3 rounded-lg overflow-x-auto my-3 text-xs font-mono">
+                                      {part}
+                                    </pre>
+                                  );
+                                } else {
+                                  // Normal text
+                                  return (
+                                    <span key={i} dangerouslySetInnerHTML={{ 
+                                      __html: part.replace(/\*\*(.*?)\*\*/g, '<strong class="text-orange-900">$1</strong>')
+                                                  .replace(/\n/g, '<br/>')
+                                    }} />
+                                  );
+                                }
+                              })}
+                            </div>
+                            
+                            {/* Diagram Display */}
+                            {q.diagramUrl && (
+                              <div className="mt-6">
+                                <h4 className="text-xs uppercase tracking-wider font-bold text-slate-500 mb-2">Diagram</h4>
+                                <div className="bg-white p-2 rounded-lg border border-slate-200 inline-block shadow-sm">
+                                  <img 
+                                    src={q.diagramUrl} 
+                                    alt="Diagram for question" 
+                                    className="max-w-full h-auto rounded"
+                                    loading="lazy"
+                                  />
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Quiz Section */}
         {lesson.quiz && lesson.quiz.length > 0 && (
           <div className="mt-16">
             <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
               <span className="bg-indigo-600 text-white p-1.5 rounded-lg text-sm">TEST</span>
-              Exam Preparation Quiz
+              Knowledge Check
             </h2>
             <Quiz questions={lesson.quiz} />
           </div>
